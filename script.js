@@ -1,17 +1,16 @@
-/* ============ PRODUCTS DATA ============ */
+/* ============ PRODUCTS (USD) ============ */
 const PRODUCTS = [
-  { id: 1, name: "Baby Diapers Pack", desc: "Soft, breathable, ultra-absorbent", price: 850.00, emoji: "👶", badge: "Bestseller" },
-  { id: 2, name: "Wet Wipes (80 pcs)", desc: "Fragrance-free, gentle on skin", price: 420.00, emoji: "🧻", badge: null },
-  { id: 3, name: "Baby Onesie Set", desc: "100% organic cotton, pack of 3", price: 1250.00, emoji: "👕", badge: "New" },
-  { id: 4, name: "Baby Lotion 200ml", desc: "Hypoallergenic, dermatologist tested", price: 690.00, emoji: "🧴", badge: null },
-  { id: 5, name: "Feeding Bottle", desc: "BPA-free, anti-colic design", price: 550.00, emoji: "🍼", badge: null },
-  { id: 6, name: "Baby Towel Set", desc: "Extra soft hooded towels, pack of 2", price: 980.00, emoji: "🧸", badge: "Sale" }
+  { id: 1, name: "Wireless Earbuds Pro", desc: "ANC, 30h battery, Bluetooth 5.3", price: 89.99, emoji: "🎧", badge: "Bestseller" },
+  { id: 2, name: "Smart Watch Ultra", desc: "AMOLED, GPS, heart-rate monitor", price: 249.00, emoji: "⌚", badge: "New" },
+  { id: 3, name: "Mechanical Keyboard", desc: "RGB, hot-swap, USB-C", price: 119.50, emoji: "⌨️", badge: null },
+  { id: 4, name: "4K Webcam", desc: "Auto-focus, noise-cancelling mic", price: 79.00, emoji: "📷", badge: null },
+  { id: 5, name: "Wireless Charger Pad", desc: "15W fast charge, Qi-certified", price: 34.99, emoji: "🔋", badge: "Sale" },
+  { id: 6, name: "USB-C Hub 7-in-1", desc: "HDMI, SD, USB 3.0, PD", price: 49.99, emoji: "🔌", badge: null }
 ];
 
-/* ============ CART STATE ============ */
-let cart = JSON.parse(localStorage.getItem("velona_cart") || "[]");
+let cart = JSON.parse(localStorage.getItem("zenoswap_cart") || "[]");
 
-/* ============ RENDER PRODUCTS ============ */
+/* ---------- Render products ---------- */
 function renderProducts() {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
@@ -26,7 +25,7 @@ function renderProducts() {
         <div class="product-name">${p.name}</div>
         <div class="product-desc">${p.desc}</div>
         <div class="product-foot">
-          <span class="product-price">Rs. ${p.price.toFixed(2)}</span>
+          <span class="product-price">$${p.price.toFixed(2)}</span>
           <button class="add-btn" onclick="addToCart(${p.id})">Add</button>
         </div>
       </div>
@@ -34,24 +33,21 @@ function renderProducts() {
   `).join("");
 }
 
-/* ============ ADD TO CART ============ */
+/* ---------- Add to cart ---------- */
 function addToCart(id) {
   const product = PRODUCTS.find(p => p.id === id);
   if (!product) return;
 
   const existing = cart.find(i => i.id === id);
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ ...product, qty: 1 });
-  }
+  if (existing) existing.qty += 1;
+  else cart.push({ ...product, qty: 1 });
 
   saveCart();
   updateCartUI();
   showToast();
 }
 
-/* ============ CART UI ============ */
+/* ---------- Cart UI ---------- */
 function updateCartUI() {
   const countEl = document.getElementById("cartCount");
   const itemsEl = document.getElementById("cartItems");
@@ -62,12 +58,8 @@ function updateCartUI() {
   const totalPrice = cart.reduce((s, i) => s + (i.price * i.qty), 0);
 
   if (countEl) countEl.innerText = totalQty;
-  if (totalEl) totalEl.innerText = `Rs. ${totalPrice.toFixed(2)}`;
-
-  if (checkoutBtn) {
-    checkoutBtn.disabled = cart.length === 0;
-  }
-
+  if (totalEl) totalEl.innerText = `$${totalPrice.toFixed(2)}`;
+  if (checkoutBtn) checkoutBtn.disabled = cart.length === 0;
   if (!itemsEl) return;
 
   if (cart.length === 0) {
@@ -80,7 +72,7 @@ function updateCartUI() {
       <div class="cart-item-img">${item.emoji}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">Rs. ${(item.price * item.qty).toFixed(2)}</div>
+        <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
         <div class="qty-controls">
           <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
           <span class="qty-num">${item.qty}</span>
@@ -108,10 +100,10 @@ function removeItem(id) {
 }
 
 function saveCart() {
-  localStorage.setItem("velona_cart", JSON.stringify(cart));
+  localStorage.setItem("zenoswap_cart", JSON.stringify(cart));
 }
 
-/* ============ CART DRAWER ============ */
+/* ---------- Drawer ---------- */
 function openCart() {
   document.getElementById("cartDrawer").classList.add("show");
   document.getElementById("cartOverlay").classList.add("show");
@@ -122,13 +114,13 @@ function closeCart() {
   document.getElementById("cartOverlay").classList.remove("show");
 }
 
-/* ============ CHECKOUT NAV ============ */
+/* ---------- Checkout nav ---------- */
 function goToCheckout() {
   if (cart.length === 0) return;
   window.location.href = "checkout.html";
 }
 
-/* ============ TOAST ============ */
+/* ---------- Toast ---------- */
 function showToast() {
   const toast = document.getElementById("toast");
   if (!toast) return;
@@ -136,6 +128,5 @@ function showToast() {
   setTimeout(() => toast.classList.remove("show"), 1800);
 }
 
-/* ============ INIT ============ */
 renderProducts();
 updateCartUI();

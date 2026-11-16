@@ -1,6 +1,8 @@
-# Velona — E-commerce Simulation
+# ZenoSwap — E-commerce Simulation
 
-A teaching demo of how an e-commerce checkout works, built with vanilla HTML/CSS/JS + EmailJS.
+A teaching demo of how an e-commerce checkout works, built with vanilla HTML/CSS/JS + EmailJS. All prices in USD.
+
+🌐 **Live:** https://zenoswap.app
 
 ## Features
 - 🛍️ Product listing with cart (localStorage)
@@ -8,9 +10,6 @@ A teaching demo of how an e-commerce checkout works, built with vanilla HTML/CSS
 - 📋 Checkout form with validation
 - 💳 Card payment simulation with Luhn check
 - 📧 Email confirmation via EmailJS
-
-## Live Demo
-[Add your Vercel URL here]
 
 ## Setup
 1. Clone the repo

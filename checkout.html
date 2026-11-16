@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout — Velona</title>
+<title>Checkout — ZenoSwap</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="checkout-page">
@@ -11,8 +11,8 @@
 <header class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <span class="logo-mark">V</span>
-      <span>velona</span>
+      <span class="logo-mark">Z</span>
+      <span>zenoswap</span>
     </a>
     <a href="index.html" class="back-link">← Back to shop</a>
   </div>
@@ -21,11 +21,9 @@
 <div class="checkout-container">
   <div class="checkout-grid">
 
-    <!-- LEFT: Details form -->
     <div class="checkout-form-col">
       <h1 class="page-title">Checkout</h1>
 
-      <!-- Account details -->
       <div class="section-title">Account Details</div>
 
       <div class="field">
@@ -48,18 +46,17 @@
       <div class="field">
         <label>Phone Number <span class="req">*</span></label>
         <div class="input-wrapper" id="wrap-phone">
-          <input type="tel" id="phone" placeholder="07X XXX XXXX" maxlength="15">
+          <input type="tel" id="phone" placeholder="+1 234 567 8900" maxlength="20">
         </div>
         <div class="error-msg" id="err-phone"></div>
       </div>
 
-      <!-- Shipping -->
       <div class="section-title">Shipping Address</div>
 
       <div class="field">
         <label>Street Address <span class="req">*</span></label>
         <div class="input-wrapper" id="wrap-address">
-          <input type="text" id="address" placeholder="No. 123, Main Street">
+          <input type="text" id="address" placeholder="123 Main Street">
         </div>
         <div class="error-msg" id="err-address"></div>
       </div>
@@ -68,20 +65,19 @@
         <div class="field">
           <label>City <span class="req">*</span></label>
           <div class="input-wrapper" id="wrap-city">
-            <input type="text" id="city" placeholder="Colombo">
+            <input type="text" id="city" placeholder="New York">
           </div>
           <div class="error-msg" id="err-city"></div>
         </div>
         <div class="field">
           <label>Postal Code <span class="req">*</span></label>
           <div class="input-wrapper" id="wrap-postal">
-            <input type="text" id="postal" placeholder="00100" maxlength="10">
+            <input type="text" id="postal" placeholder="10001" maxlength="10">
           </div>
           <div class="error-msg" id="err-postal"></div>
         </div>
       </div>
 
-      <!-- Payment method -->
       <div class="section-title">Payment Method</div>
 
       <div class="card-type-options" id="typeOptions">
@@ -103,15 +99,14 @@
       <button class="continue-btn" onclick="openPaymentPopup()">Continue to Payment</button>
     </div>
 
-    <!-- RIGHT: Order summary -->
     <div class="order-summary-col">
       <div class="summary-card">
         <h3>Order Summary</h3>
         <div id="summaryItems"></div>
         <div class="summary-totals">
-          <div class="summary-row"><span>Subtotal</span><span id="subtotal">Rs. 0.00</span></div>
+          <div class="summary-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
           <div class="summary-row"><span>Shipping</span><span class="free">Free</span></div>
-          <div class="summary-row total-row"><span>Total</span><span id="summaryTotal">Rs. 0.00</span></div>
+          <div class="summary-row total-row"><span>Total</span><span id="summaryTotal">$0.00</span></div>
         </div>
       </div>
     </div>
@@ -119,16 +114,16 @@
   </div>
 </div>
 
-<!-- ============ PAYMENT POPUP ============ -->
+<!-- PAYMENT POPUP -->
 <div class="overlay" id="overlay">
   <div class="popup">
     <div class="popup-header">
       <button class="close-btn" onclick="closePaymentPopup()">✕</button>
       <div class="brand">
-        <div class="brand-logo-icon">V</div>Velona
+        <div class="brand-logo-icon">Z</div>ZenoSwap
       </div>
-      <div class="order">Order #<span id="orderId">52071</span></div>
-      <div class="amount" id="popupAmount">Rs. 0.00</div>
+      <div class="order">Order #<span id="orderId">000000</span></div>
+      <div class="amount" id="popupAmount">$0.00</div>
     </div>
 
     <div class="popup-body">
@@ -202,13 +197,13 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
           <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-        Secured by PayHere Simulation
+        Secured by ZenoPay Simulation
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ SUCCESS MODAL ============ -->
+<!-- SUCCESS -->
 <div class="overlay" id="successOverlay">
   <div class="success-box">
     <div class="check-circle">
@@ -218,7 +213,7 @@
       </svg>
     </div>
     <h2>Payment Successful!</h2>
-    <p>Thank you for shopping with Velona.</p>
+    <p>Thank you for shopping with ZenoSwap.</p>
     <p class="order-ref">Order #<span id="successOrderId"></span></p>
     <a href="index.html" class="back-shop-btn">Back to Shop</a>
   </div>

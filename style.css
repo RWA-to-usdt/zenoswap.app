@@ -85,7 +85,6 @@ body {
   color: #1e293b;
   transition: 0.2s;
 }
-
 .cart-btn:hover { background: #e2e8f0; }
 
 .cart-count {
@@ -172,7 +171,7 @@ body {
 
 .product-img {
   height: 200px;
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #eef2ff, #f5f3ff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -274,7 +273,6 @@ body {
   flex-direction: column;
   box-shadow: -10px 0 40px rgba(0,0,0,0.1);
 }
-
 .cart-drawer.show { transform: translateX(0); }
 
 .cart-head {
@@ -284,11 +282,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
-.cart-head h3 {
-  font-size: 18px;
-  font-weight: 700;
-}
+.cart-head h3 { font-size: 18px; font-weight: 700; }
 
 .close-cart {
   background: #f1f5f9;
@@ -323,7 +317,7 @@ body {
 .cart-item-img {
   width: 56px;
   height: 56px;
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #eef2ff, #f5f3ff);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -364,7 +358,6 @@ body {
   font-weight: 700;
   color: #475569;
 }
-
 .qty-btn:hover { background: #e2e8f0; }
 
 .qty-num {
@@ -423,11 +416,7 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(79,70,229,0.5);
 }
-
-.checkout-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ============ TOAST ============ */
 .toast {
@@ -445,7 +434,6 @@ body {
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 999;
 }
-
 .toast.show { transform: translateX(-50%) translateY(0); }
 
 /* ============ CHECKOUT PAGE ============ */
@@ -457,7 +445,6 @@ body {
   font-weight: 500;
   font-size: 14px;
 }
-
 .back-link:hover { color: #4f46e5; }
 
 .checkout-container {
@@ -498,7 +485,6 @@ body {
   align-items: center;
   gap: 8px;
 }
-
 .section-title::after {
   content: '';
   flex: 1;
@@ -517,7 +503,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.4px;
 }
-
 .field label .req { color: #ef4444; }
 
 .input-wrapper { position: relative; }
@@ -580,7 +565,6 @@ body {
   color: #94a3b8;
 }
 
-/* Card type */
 .card-type-options {
   display: flex;
   gap: 10px;
@@ -631,7 +615,6 @@ body {
   box-shadow: 0 6px 18px rgba(79,70,229,0.35);
   transition: 0.2s;
 }
-
 .continue-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(79,70,229,0.5);
@@ -646,7 +629,6 @@ body {
   position: sticky;
   top: 90px;
 }
-
 .summary-card h3 {
   font-size: 16px;
   font-weight: 700;
@@ -664,7 +646,7 @@ body {
 .summary-item-img {
   width: 48px;
   height: 48px;
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #eef2ff, #f5f3ff);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -673,22 +655,9 @@ body {
 }
 
 .summary-item-info { flex: 1; }
-
-.summary-item-name {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.summary-item-qty {
-  font-size: 12px;
-  color: #64748b;
-}
-
-.summary-item-price {
-  font-size: 13px;
-  font-weight: 700;
-  color: #1e293b;
-}
+.summary-item-name { font-size: 13px; font-weight: 600; }
+.summary-item-qty { font-size: 12px; color: #64748b; }
+.summary-item-price { font-size: 13px; font-weight: 700; color: #1e293b; }
 
 .summary-totals {
   margin-top: 16px;
@@ -715,7 +684,7 @@ body {
 
 .free { color: #16a34a; font-weight: 600; }
 
-/* ============ PAYMENT POPUP (reuse) ============ */
+/* ============ PAYMENT POPUP ============ */
 .overlay {
   display: none;
   position: fixed;
@@ -727,7 +696,6 @@ body {
   z-index: 999;
   padding: 20px;
 }
-
 .overlay.show { display: flex; animation: fadeIn 0.25s; }
 
 .popup {
@@ -811,7 +779,6 @@ body {
   cursor: pointer;
   z-index: 2;
 }
-
 .close-btn:hover {
   background: rgba(255,255,255,0.3);
   transform: rotate(90deg);
@@ -832,7 +799,6 @@ body {
   transition: 0.25s;
   pointer-events: none;
 }
-
 .card-icon.visible { opacity: 1; }
 .card-icon svg { width: 100%; }
 
@@ -883,11 +849,7 @@ body {
   gap: 8px;
   box-shadow: 0 6px 18px rgba(79,70,229,0.35);
 }
-
-.pay-now-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
+.pay-now-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
 .spinner {
   width: 16px;
@@ -898,7 +860,6 @@ body {
   animation: spin 0.7s linear infinite;
   display: none;
 }
-
 .pay-now-btn.loading .spinner { display: block; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -925,7 +886,7 @@ body {
   border-top: 1px solid #f1f5f9;
 }
 
-/* ============ SUCCESS MODAL ============ */
+/* ============ SUCCESS ============ */
 .success-box {
   background: white;
   border-radius: 20px;
@@ -952,7 +913,6 @@ body {
   stroke-dashoffset: 50;
   animation: draw 0.5s ease 0.5s forwards;
 }
-
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
 .success-box h2 {
@@ -988,9 +948,7 @@ body {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
-  .checkout-grid {
-    grid-template-columns: 1fr;
-  }
+  .checkout-grid { grid-template-columns: 1fr; }
   .summary-card { position: static; }
   .nav-links { display: none; }
 }

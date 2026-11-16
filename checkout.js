@@ -1,18 +1,17 @@
 /* ============ EmailJS init ============ */
-emailjs.init("YOUR_PUBLIC_KEY"); // 🔧 මෙතන ඔයාගේ Public Key එක දාන්න
+emailjs.init("YOUR_PUBLIC_KEY"); // 🔧 මෙතන Public Key දාන්න
 
-/* ============ CART FROM STORAGE ============ */
-const cart = JSON.parse(localStorage.getItem("velona_cart") || "[]");
+/* ============ Load cart ============ */
+const cart = JSON.parse(localStorage.getItem("zenoswap_cart") || "[]");
 
 if (cart.length === 0) {
-  // no items → redirect back
   alert("Your cart is empty. Add items first!");
   window.location.href = "index.html";
 }
 
 let selectedType = "";
 
-/* ============ RENDER SUMMARY ============ */
+/* ============ Render summary (USD) ============ */
 function renderSummary() {
   const itemsEl = document.getElementById("summaryItems");
   const subtotalEl = document.getElementById("subtotal");
@@ -29,21 +28,21 @@ function renderSummary() {
         <div class="summary-item-name">${item.name}</div>
         <div class="summary-item-qty">Qty: ${item.qty}</div>
       </div>
-      <div class="summary-item-price">Rs. ${(item.price * item.qty).toFixed(2)}</div>
+      <div class="summary-item-price">$${(item.price * item.qty).toFixed(2)}</div>
     </div>
   `).join("");
 
-  subtotalEl.innerText = `Rs. ${subtotal.toFixed(2)}`;
-  totalEl.innerText = `Rs. ${subtotal.toFixed(2)}`;
-  popupAmount.innerText = `Rs. ${subtotal.toFixed(2)}`;
-  payBtnText.innerText = `Pay Now · Rs. ${subtotal.toFixed(2)}`;
+  subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+  totalEl.innerText = `$${subtotal.toFixed(2)}`;
+  popupAmount.innerText = `$${subtotal.toFixed(2)}`;
+  payBtnText.innerText = `Pay Now · $${subtotal.toFixed(2)}`;
 
   return subtotal;
 }
 
 const CART_TOTAL = renderSummary();
 
-/* ============ Validation helpers ============ */
+/* ============ Helpers ============ */
 function showError(id, msg) {
   const wrap = document.getElementById("wrap-" + id);
   const err = document.getElementById("err-" + id);
@@ -58,7 +57,7 @@ function clearError(id, success = true) {
   if (err) err.classList.remove("show");
 }
 
-/* ---------- Field validators ---------- */
+/* ---------- Validators ---------- */
 function validateEmail() {
   const v = document.getElementById("regEmail").value.trim();
   if (!v) return showError("regEmail", "Email is required");
@@ -77,7 +76,7 @@ function validatePhone() {
   const v = document.getElementById("phone").value.trim();
   if (!v) return showError("phone", "Phone is required");
   const d = v.replace(/\D/g, "");
-  if (d.length < 9 || d.length > 12) return showError("phone", "Invalid phone (9-12 digits)");
+  if (d.length < 9 || d.length > 15) return showError("phone", "Invalid phone (9-15 digits)");
   clearError("phone"); return true;
 }
 
@@ -97,7 +96,7 @@ function validateCity() {
 function validatePostal() {
   const v = document.getElementById("postal").value.trim();
   if (!v) return showError("postal", "Postal code required");
-  if (!/^[0-9]{4,6}$/.test(v)) return showError("postal", "4-6 digit code");
+  if (!/^[A-Za-z0-9\s\-]{3,10}$/.test(v)) return showError("postal", "Invalid postal code");
   clearError("postal"); return true;
 }
 
@@ -110,7 +109,6 @@ function validateCardType() {
   return true;
 }
 
-/* Luhn */
 function luhnCheck(num) {
   let sum = 0, alt = false;
   for (let i = num.length - 1; i >= 0; i--) {
@@ -171,7 +169,6 @@ function validateName() {
   clearError("name"); return true;
 }
 
-/* ============ Blur validation ============ */
 const blurMap = {
   regEmail: validateEmail,
   regPassword: validatePassword,
@@ -189,13 +186,11 @@ Object.keys(blurMap).forEach(id => {
   if (el) el.addEventListener("blur", blurMap[id]);
 });
 
-/* ============ Password toggle ============ */
 function togglePassword() {
   const p = document.getElementById("regPassword");
   p.type = p.type === "password" ? "text" : "password";
 }
 
-/* ============ Pick card type ============ */
 function pickType(type) {
   selectedType = type;
   document.querySelectorAll(".type-btn").forEach(b => {
@@ -204,7 +199,7 @@ function pickType(type) {
   document.getElementById("err-cardType").classList.remove("show");
 }
 
-/* ============ Open payment popup ============ */
+/* ============ Open popup ============ */
 function openPaymentPopup() {
   const ok = [
     validateEmail(), validatePassword(), validatePhone(),
@@ -232,7 +227,7 @@ function closePaymentPopup() {
   payBtn.classList.remove("loading");
 }
 
-/* ============ Brand detection ============ */
+/* ============ Brand ============ */
 const brands = ["visa", "mastercard", "amex"];
 const cardInput = document.getElementById("card");
 const cardSelect = document.getElementById("cardType");
@@ -309,12 +304,11 @@ document.getElementById("cvv").addEventListener("input", function (e) {
   e.target.value = e.target.value.replace(/\D/g, "");
 });
 
-/* ============ Generate order ID ============ */
 function generateOrderId() {
-  return "ORD" + Date.now().toString().slice(-6);
+  return "ZS" + Date.now().toString().slice(-6);
 }
 
-/* ============ Submit payment ============ */
+/* ============ Submit ============ */
 function submitPayment() {
   const ok = [validateName(), validateCardNumber(), validateExpiry(), validateCVV()].every(v => v === true);
   if (!ok) {
@@ -330,9 +324,7 @@ function submitPayment() {
   showStatus("Please wait...", "loading");
 
   const orderId = document.getElementById("orderId").innerText;
-
-  // Build items list as text for email
-  const itemsList = cart.map(i => `${i.name} × ${i.qty} = Rs. ${(i.price * i.qty).toFixed(2)}`).join("\n");
+  const itemsList = cart.map(i => `${i.name} × ${i.qty} = $${(i.price * i.qty).toFixed(2)}`).join("\n");
 
   const params = {
     email: document.getElementById("regEmail").value.trim(),
@@ -355,13 +347,11 @@ function submitPayment() {
     .then(() => {
       showStatus("Payment successful!", "success");
       payBtnText.innerText = "✓ Success";
-
       setTimeout(() => {
         closePaymentPopup();
         document.getElementById("successOrderId").innerText = orderId;
         document.getElementById("successOverlay").classList.add("show");
-        // clear cart
-        localStorage.removeItem("velona_cart");
+        localStorage.removeItem("zenoswap_cart");
       }, 1500);
     })
     .catch(err => {
@@ -369,7 +359,7 @@ function submitPayment() {
       showStatus("❌ Payment failed. Try again.", "error");
       payBtn.disabled = false;
       payBtn.classList.remove("loading");
-      payBtnText.innerText = `Pay Now · Rs. ${CART_TOTAL.toFixed(2)}`;
+      payBtnText.innerText = `Pay Now · $${CART_TOTAL.toFixed(2)}`;
     });
 }
 

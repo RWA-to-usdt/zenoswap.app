@@ -3,23 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Velona — Baby Shop</title>
+<title>ZenoSwap — Modern Tech Store</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ============ NAVBAR ============ -->
 <header class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <span class="logo-mark">V</span>
-      <span>velona</span>
+      <span class="logo-mark">Z</span>
+      <span>zenoswap</span>
     </a>
     <nav class="nav-links">
-      <a href="#">Baby</a>
-      <a href="#">Sanitary</a>
-      <a href="#">Clothing</a>
-      <a href="#">Offers</a>
+      <a href="#">Audio</a>
+      <a href="#">Wearables</a>
+      <a href="#">Accessories</a>
+      <a href="#">Deals</a>
     </nav>
     <button class="cart-btn" onclick="openCart()">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -31,42 +30,35 @@
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-content">
-    <h1>Everything your little one needs</h1>
-    <p>Gentle, safe & loved by parents across Sri Lanka.</p>
+    <h1>Upgrade your everyday tech</h1>
+    <p>Premium gadgets, honest prices — shipped worldwide.</p>
   </div>
 </section>
 
-<!-- ============ PRODUCTS ============ -->
 <section class="products">
   <div class="section-head">
-    <h2>Our Products</h2>
-    <p>Handpicked for comfort & care</p>
+    <h2>Featured Products</h2>
+    <p>Handpicked tech for modern living</p>
   </div>
-
-  <div class="product-grid" id="productGrid">
-    <!-- Products loaded by JS -->
-  </div>
+  <div class="product-grid" id="productGrid"></div>
 </section>
 
-<!-- ============ CART DRAWER ============ -->
+<!-- CART DRAWER -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer">
   <div class="cart-head">
     <h3>Your Cart</h3>
     <button onclick="closeCart()" class="close-cart">✕</button>
   </div>
-
   <div class="cart-items" id="cartItems">
     <p class="empty-cart">Your cart is empty 🛒</p>
   </div>
-
   <div class="cart-foot">
     <div class="cart-total">
       <span>Total</span>
-      <strong id="cartTotal">Rs. 0.00</strong>
+      <strong id="cartTotal">$0.00</strong>
     </div>
     <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()" disabled>
       Proceed to Checkout →
@@ -74,7 +66,6 @@
   </div>
 </aside>
 
-<!-- ============ TOAST ============ -->
 <div class="toast" id="toast">Added to cart ✓</div>
 
 <script src="script.js"></script>
