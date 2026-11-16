@@ -7,7 +7,8 @@ const PRODUCTS = [
     price: 32.00,
     emoji: "📱",
     badge: "Trending",
-    category: "Accessories"
+    category: "Accessories",
+    img: "images/magsafe-mount.jpg"
   },
   {
     id: 2,
@@ -16,7 +17,8 @@ const PRODUCTS = [
     price: 89.99,
     emoji: "🎧",
     badge: "Bestseller",
-    category: "Audio"
+    category: "Audio",
+    img: "images/earbuds.jpg"
   },
   {
     id: 3,
@@ -25,7 +27,8 @@ const PRODUCTS = [
     price: 199.00,
     emoji: "🎧",
     badge: "New",
-    category: "Audio"
+    category: "Audio",
+    img: "images/headphones.png"
   },
   {
     id: 4,
@@ -34,7 +37,8 @@ const PRODUCTS = [
     price: 249.00,
     emoji: "⌚",
     badge: "New",
-    category: "Wearables"
+    category: "Wearables",
+    img: "images/watch.jpg"
   },
   {
     id: 5,
@@ -43,7 +47,8 @@ const PRODUCTS = [
     price: 69.00,
     emoji: "⌚",
     badge: null,
-    category: "Wearables"
+    category: "Wearables",
+    img: "images/fitness-band.jpg"
   },
   {
     id: 6,
@@ -52,7 +57,8 @@ const PRODUCTS = [
     price: 45.99,
     emoji: "🔋",
     badge: "Sale",
-    category: "Accessories"
+    category: "Accessories",
+    img: "images/powerbank.jpg"
   },
   {
     id: 7,
@@ -61,7 +67,8 @@ const PRODUCTS = [
     price: 34.99,
     emoji: "🔋",
     badge: "Trending",
-    category: "Accessories"
+    category: "Accessories",
+    img: "images/magsafe-charger.jpg"
   },
   {
     id: 8,
@@ -70,7 +77,8 @@ const PRODUCTS = [
     price: 59.99,
     emoji: "🔊",
     badge: null,
-    category: "Audio"
+    category: "Audio",
+    img: "images/speaker.jpg"
   },
   {
     id: 9,
@@ -79,7 +87,8 @@ const PRODUCTS = [
     price: 54.99,
     emoji: "💡",
     badge: "New",
-    category: "Smart Home"
+    category: "Smart Home",
+    img: "images/desk-lamp.jpg"
   },
   {
     id: 10,
@@ -88,7 +97,8 @@ const PRODUCTS = [
     price: 29.99,
     emoji: "🔌",
     badge: "Trending",
-    category: "Smart Home"
+    category: "Smart Home",
+    img: "images/smart-plug.jpg"
   },
   {
     id: 11,
@@ -97,7 +107,8 @@ const PRODUCTS = [
     price: 49.99,
     emoji: "🔌",
     badge: null,
-    category: "Accessories"
+    category: "Accessories",
+    img: "images/usb-hub.png"
   },
   {
     id: 12,
@@ -106,7 +117,8 @@ const PRODUCTS = [
     price: 39.99,
     emoji: "🖱️",
     badge: null,
-    category: "Accessories"
+    category: "Accessories",
+    img: "images/gaming-mouse.jpg"
   }
 ];
 
@@ -121,7 +133,9 @@ function renderProducts(list = PRODUCTS) {
     <div class="product-card">
       <div class="product-img">
         ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ""}
-        ${p.emoji}
+        ${p.img 
+          ? `<img src="${p.img}" alt="${p.name}" class="product-photo" onerror="this.style.display='none'; this.parentElement.innerHTML += '${p.emoji}';">` 
+          : p.emoji}
       </div>
       <div class="product-body">
         <div class="product-name">${p.name}</div>
@@ -183,7 +197,12 @@ function updateCartUI() {
 
   itemsEl.innerHTML = cart.map(item => `
     <div class="cart-item">
-      <div class="cart-item-img">${item.emoji}</div>
+      <!-- මෙතනත් image එක පෙන්නන්න හැදුවා (optional) -->
+      <div class="cart-item-img">
+        ${item.img 
+          ? `<img src="${item.img}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">` 
+          : item.emoji}
+      </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>

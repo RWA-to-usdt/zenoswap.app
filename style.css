@@ -654,3 +654,19 @@ body {
   .values-grid, .stats-grid { grid-template-columns: 1fr; }
   .legal-container { padding: 32px 20px; }
 }
+/* ============ PRODUCT IMAGES ============ */
+.product-img {
+  overflow: hidden; /* zoom වෙද්දි එළියට යන්නේ නැති වෙන්න */
+}
+
+.product-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-photo {
+  transform: scale(1.08); /* mouse එක ගෙනිච්චම පොඩ්ඩක් zoom වෙනවා */
+}
