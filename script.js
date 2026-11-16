@@ -124,7 +124,7 @@ const PRODUCTS = [
 
 let cart = JSON.parse(localStorage.getItem("zenoswap_cart") || "[]");
 
-/* ---------- Render products ---------- */
+/* ============ RENDER PRODUCTS ============ */
 function renderProducts(list = PRODUCTS) {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
@@ -149,7 +149,7 @@ function renderProducts(list = PRODUCTS) {
   `).join("");
 }
 
-/* ---------- Filter products ---------- */
+/* ============ CATEGORY FILTERS ============ */
 function filterProducts(category, btn) {
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
@@ -161,7 +161,7 @@ function filterProducts(category, btn) {
   renderProducts(filtered);
 }
 
-/* ---------- Add to cart ---------- */
+/* ============ ADD TO CART ============ */
 function addToCart(id) {
   const product = PRODUCTS.find(p => p.id === id);
   if (!product) return;
@@ -175,7 +175,7 @@ function addToCart(id) {
   showToast();
 }
 
-/* ---------- Cart UI ---------- */
+/* ============ CART UI ============ */
 function updateCartUI() {
   const countEl = document.getElementById("cartCount");
   const itemsEl = document.getElementById("cartItems");
@@ -197,7 +197,6 @@ function updateCartUI() {
 
   itemsEl.innerHTML = cart.map(item => `
     <div class="cart-item">
-      <!-- මෙතනත් image එක පෙන්නන්න හැදුවා (optional) -->
       <div class="cart-item-img">
         ${item.img 
           ? `<img src="${item.img}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">` 
@@ -236,7 +235,7 @@ function saveCart() {
   localStorage.setItem("zenoswap_cart", JSON.stringify(cart));
 }
 
-/* ---------- Drawer ---------- */
+/* ============ DRAWER CONTROLS ============ */
 function openCart() {
   document.getElementById("cartDrawer").classList.add("show");
   document.getElementById("cartOverlay").classList.add("show");
@@ -247,13 +246,12 @@ function closeCart() {
   document.getElementById("cartOverlay").classList.remove("show");
 }
 
-/* ---------- Checkout nav ---------- */
 function goToCheckout() {
   if (cart.length === 0) return;
   window.location.href = "checkout.html";
 }
 
-/* ---------- Toast ---------- */
+/* ============ TOAST ============ */
 function showToast() {
   const toast = document.getElementById("toast");
   if (!toast) return;
@@ -261,6 +259,60 @@ function showToast() {
   setTimeout(() => toast.classList.remove("show"), 1800);
 }
 
-/* ---------- Init ---------- */
+/* ============ SOCIAL PROOF NOTIFICATIONS ============ */
+const FAKE_NAMES = ["James", "Emma", "Liam", "Olivia", "Noah", "Ava", "William", "Sophia", "Lucas", "Mia", "Arjun", "Priya"];
+const FAKE_LOCATIONS = ["New York, US", "London, UK", "Toronto, CA", "Sydney, AU", "California, US", "Manchester, UK", "Vancouver, CA", "Melbourne, AU"];
+
+let notifTimeout;
+let hideTimeout;
+
+function showLiveNotification() {
+  const notif = document.getElementById("liveNotification");
+  if (!notif) return;
+
+  const randomProduct = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+  const randomName = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
+  const randomLocation = FAKE_LOCATIONS[Math.floor(Math.random() * FAKE_LOCATIONS.length)];
+  const randomMins = Math.floor(Math.random() * 15) + 1;
+
+  document.getElementById("liveText").innerHTML = `<strong>${randomName}</strong> from ${randomLocation} just bought a <span style="color:#4f46e5; font-weight:600;">${randomProduct.name}</span>`;
+  document.getElementById("liveTime").innerText = `${randomMins} minutes ago`;
+  
+  const imgContainer = document.getElementById("liveImg");
+  if (randomProduct.img) {
+    imgContainer.innerHTML = `<img src="${randomProduct.img}" alt="product">`;
+  } else {
+    imgContainer.innerHTML = randomProduct.emoji;
+  }
+
+  notif.classList.add("show");
+
+  clearTimeout(hideTimeout);
+  hideTimeout = setTimeout(() => {
+    notif.classList.remove("show");
+  }, 5000);
+}
+
+function closeLiveNotif() {
+  document.getElementById("liveNotification").classList.remove("show");
+  clearTimeout(notifTimeout);
+  startNotificationLoop(15000);
+}
+
+function startNotificationLoop(delay = 8000) {
+  clearTimeout(notifTimeout);
+  notifTimeout = setTimeout(() => {
+    showLiveNotification();
+    const nextDelay = Math.floor(Math.random() * 13000) + 12000; 
+    startNotificationLoop(nextDelay);
+  }, delay);
+}
+
+/* ============ INIT ============ */
 renderProducts();
 updateCartUI();
+
+// Site load වෙලා තත්පර 4කින් notification පටන් ගන්නවා
+document.addEventListener("DOMContentLoaded", () => {
+  startNotificationLoop(4000); 
+});
