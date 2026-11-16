@@ -42,6 +42,15 @@
     <h2>Featured Products</h2>
     <p>Handpicked tech for modern living</p>
   </div>
+
+  <div class="category-filters" id="categoryFilters">
+    <button class="filter-btn active" data-cat="all" onclick="filterProducts('all', this)">All</button>
+    <button class="filter-btn" data-cat="Audio" onclick="filterProducts('Audio', this)">Audio</button>
+    <button class="filter-btn" data-cat="Wearables" onclick="filterProducts('Wearables', this)">Wearables</button>
+    <button class="filter-btn" data-cat="Accessories" onclick="filterProducts('Accessories', this)">Accessories</button>
+    <button class="filter-btn" data-cat="Smart Home" onclick="filterProducts('Smart Home', this)">Smart Home</button>
+  </div>
+
   <div class="product-grid" id="productGrid"></div>
 </section>
 
@@ -90,7 +99,7 @@
         <li><a href="#">Audio</a></li>
         <li><a href="#">Wearables</a></li>
         <li><a href="#">Accessories</a></li>
-        <li><a href="#">Deals</a></li>
+        <li><a href="#">Smart Home</a></li>
       </ul>
     </div>
     <div class="footer-col">
