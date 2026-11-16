@@ -345,7 +345,7 @@ function submitPayment() {
   };
 
   // ඔයාගේ Service ID සහ Template ID මෙතනට දාලා තියෙනවා
-  emailjs.send("service_6fba0zo", "template_zem7g9d", params)
+  emailjs.send("service_6fba0zo", "template_y2yzm6d", templateParams)
     .then(() => {
       showStatus("Payment successful!", "success");
       payBtnText.innerText = "✓ Success";
