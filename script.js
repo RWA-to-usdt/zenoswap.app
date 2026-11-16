@@ -10,7 +10,7 @@ const PRODUCTS = [
 
 let cart = JSON.parse(localStorage.getItem("zenoswap_cart") || "[]");
 
-/* ---------- Render products ---------- */
+/* ---------- Render ---------- */
 function renderProducts() {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
@@ -33,21 +33,15 @@ function renderProducts() {
   `).join("");
 }
 
-/* ---------- Add to cart ---------- */
 function addToCart(id) {
   const product = PRODUCTS.find(p => p.id === id);
   if (!product) return;
-
   const existing = cart.find(i => i.id === id);
   if (existing) existing.qty += 1;
   else cart.push({ ...product, qty: 1 });
-
-  saveCart();
-  updateCartUI();
-  showToast();
+  saveCart(); updateCartUI(); showToast();
 }
 
-/* ---------- Cart UI ---------- */
 function updateCartUI() {
   const countEl = document.getElementById("cartCount");
   const itemsEl = document.getElementById("cartItems");
@@ -89,21 +83,16 @@ function changeQty(id, delta) {
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
-  saveCart();
-  updateCartUI();
+  saveCart(); updateCartUI();
 }
 
 function removeItem(id) {
   cart = cart.filter(i => i.id !== id);
-  saveCart();
-  updateCartUI();
+  saveCart(); updateCartUI();
 }
 
-function saveCart() {
-  localStorage.setItem("zenoswap_cart", JSON.stringify(cart));
-}
+function saveCart() { localStorage.setItem("zenoswap_cart", JSON.stringify(cart)); }
 
-/* ---------- Drawer ---------- */
 function openCart() {
   document.getElementById("cartDrawer").classList.add("show");
   document.getElementById("cartOverlay").classList.add("show");
@@ -114,13 +103,11 @@ function closeCart() {
   document.getElementById("cartOverlay").classList.remove("show");
 }
 
-/* ---------- Checkout nav ---------- */
 function goToCheckout() {
   if (cart.length === 0) return;
   window.location.href = "checkout.html";
 }
 
-/* ---------- Toast ---------- */
 function showToast() {
   const toast = document.getElementById("toast");
   if (!toast) return;

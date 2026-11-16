@@ -1,7 +1,7 @@
-/* ============ EmailJS init ============ */
+/* ============ EmailJS ============ */
 emailjs.init("YOUR_PUBLIC_KEY"); // 🔧 මෙතන Public Key දාන්න
 
-/* ============ Load cart ============ */
+/* ============ Cart ============ */
 const cart = JSON.parse(localStorage.getItem("zenoswap_cart") || "[]");
 
 if (cart.length === 0) {
@@ -11,7 +11,7 @@ if (cart.length === 0) {
 
 let selectedType = "";
 
-/* ============ Render summary (USD) ============ */
+/* ============ Summary ============ */
 function renderSummary() {
   const itemsEl = document.getElementById("summaryItems");
   const subtotalEl = document.getElementById("subtotal");
@@ -36,7 +36,6 @@ function renderSummary() {
   totalEl.innerText = `$${subtotal.toFixed(2)}`;
   popupAmount.innerText = `$${subtotal.toFixed(2)}`;
   payBtnText.innerText = `Pay Now · $${subtotal.toFixed(2)}`;
-
   return subtotal;
 }
 
@@ -199,7 +198,7 @@ function pickType(type) {
   document.getElementById("err-cardType").classList.remove("show");
 }
 
-/* ============ Open popup ============ */
+/* ============ Popup ============ */
 function openPaymentPopup() {
   const ok = [
     validateEmail(), validatePassword(), validatePhone(),
